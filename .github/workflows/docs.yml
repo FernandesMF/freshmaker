@@ -5,7 +5,7 @@ on:
 
   push:
     branches:
-      - main
+      - main-fake  #FIXME
 
 jobs:
   docs:
@@ -32,13 +32,14 @@ jobs:
           dnf_install: ${{ steps.packages.outputs.packages }}
           tox_env: docs
 
-      - name: Install rsync
-        run: |
-          sudo apt-get update && sudo apt-get install -y rsync
+      # - name: Install rsync
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y rsync
 
       - name: Deploy docs
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main-fake'  #FIXME
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           folder: docs/_build/html
+          dry_run: true
