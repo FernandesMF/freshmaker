@@ -29,8 +29,12 @@ jobs:
       - name: Build docs
         uses: fedora-python/tox-github-action@master
         with:
-          dnf_install: --repo fedora ${{ steps.packages.outputs.packages }}
+          dnf_install: ${{ steps.packages.outputs.packages }}
           tox_env: docs
+
+      - name: Install rsync
+        run: |
+          sudo apt-get update && sudo apt-get install -y rsync
 
       - name: Deploy docs
         if: github.ref == 'refs/heads/main'
@@ -38,3 +42,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs/_build/html
+          dry-run: true
