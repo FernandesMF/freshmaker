@@ -5,7 +5,7 @@ on:
 
   push:
     branches:
-      - main-fake
+      - main
 
 jobs:
   docs:
@@ -37,9 +37,8 @@ jobs:
           sudo apt-get update && sudo apt-get install -y rsync
 
       - name: Deploy docs
-        if: github.ref == 'refs/heads/main-fake'
+        if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           folder: docs/_build/html
-          dry-run: true
